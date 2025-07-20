@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-auth-starter:build:production"
+              "buildTarget": "angular-auth-starter:build:production"
             },
             "development": {
-              "browserTarget": "angular-auth-starter:build:development"
+              "buildTarget": "angular-auth-starter:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-auth-starter:build"
+            "buildTarget": "angular-auth-starter:build"
           }
         },
         "test": {
