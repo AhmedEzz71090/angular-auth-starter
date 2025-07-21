@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {AbstractControl, ValidationErrors, ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(credentials: {username: string, password: string}): Observable<any> {
+  login(credentials: any): Observable<any> {
     return this.http.post<{token: string}>('/api/auth/login', credentials).pipe(
       tap((res: any) => this.setToken(res.token))
     )
