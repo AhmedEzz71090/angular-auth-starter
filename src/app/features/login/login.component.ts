@@ -21,23 +21,20 @@ export class LoginComponent implements OnDestroy{
   loading = false;
   error: any;
   alive = true;
-  errorMessage = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   }
 
-  async onSubmit(): Promise<void> {
+  onSubmit() {
     if (this.loginForm.invalid) return;
-
-    try {
-      const email = this.loginForm.value.email!;
-      const password = this.loginForm.value.password!;
-      await this.authService.login(email, password);
-      this.router.navigate(['/dashboard']);
-    } catch (err: unknown) {
-      this.errorMessage = 'Login failed. Please check your credentials.';
-      console.error(err);
-    }
+    this.loading = true;
+    this.authService.login(this.loginForm.value).pipe(takeWhile(() => this.alive)).subscribe({
+      next: () => this.router.navigate(['/dashboard']),
+      error: (err) => {
+        this.error = err.error?.message || 'Login Failed';
+        this.loading = false;
+      }
+    })
   }
 
   ngOnDestroy() {
